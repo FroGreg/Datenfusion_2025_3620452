@@ -86,6 +86,7 @@ public:
 
     // Step 2
     // Handle PH out of range first.
+    // PH has to be in the range of DANGER_LOW - DANGER_HIGH. Or rather, not TOO_LOW OR TOO_HIGH.
     if(ph_state == SensorStateLevel::TOO_LOW || ph_state == SensorStateLevel::TOO_HIGH){
       return false;
     }
@@ -95,8 +96,8 @@ public:
     // PH range already implicitly checked in Step 2
     if(
       wd_state == SensorStateLevel::OK &&
-      ((int)wl_state >= (int)SensorStateLevel::OK && (int)wl_state <= (int)SensorStateLevel::TOO_HIGH) && // Check if in range OK - TOO_HIGH
-      ((int)sm_state <= (int)SensorStateLevel::DANGER_HIGH) // Check if in range TOO_LOW - DANGER_HIGH. Or rather, if not TOO_HIGH.
+      ((int)wl_state >= (int)SensorStateLevel::OK && (int)wl_state <= (int)SensorStateLevel::TOO_HIGH) && // Check if the water level is in range OK - TOO_HIGH
+      ((int)sm_state <= (int)SensorStateLevel::DANGER_HIGH) // Check if soil moisture is in range TOO_LOW - DANGER_HIGH. Or rather, if not TOO_HIGH.
     ){
       return true;
     }
